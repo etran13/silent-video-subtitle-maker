@@ -2,6 +2,9 @@ def split(script: str) -> str:
     "Break up the script into chunks"
     return script.split(". ")
 
+def calculate_times(script: list[str]) -> list[chunks]:
+    pass
+
 #TODO: Add an option for "preserve period"
 
 if (__name__ == "__main__"):
