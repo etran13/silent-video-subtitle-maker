@@ -15,7 +15,7 @@ static PyObject *method_fputs(PyObject *self, PyObject *args) {
     }
 
     //Write to the file
-    file *fp = fopen(filename, "w");
+    FILE *fp = fopen(filename, "w");
     bytes_copied = fputs(str, fp);
     fclose(fp);
 
@@ -36,6 +36,6 @@ static struct PyModuleDef string_processingmodule = {
     StringProcessingMethods
 };
 
-PyMODINIT_FUNC PyInit_fputs(void) {
+PyMODINIT_FUNC PyInit_string_processing(void) {
     return PyModule_Create(&string_processingmodule);
 }
