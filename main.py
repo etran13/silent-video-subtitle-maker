@@ -1,16 +1,32 @@
 import tkinter as tk
-import string_processing as sp
 
 def handle_generate_button_click(event):
     """Get all fields and generate the vtt file"""
     text = text_box.get("1.0", tk.END)
     should_preserve = preserve_period_checkbox_var.get()
     should_split = split_long_sentences_checkbox_var.get()
-    pathname = f"{pathname_text_box.get()}/"
-    filename = f"{filename_text_box.get()}.vtt"
+    pathname = f"{pathname_text_box.get()}"
+    filename = f"/{filename_text_box.get()}.vtt"
 
-    test = [text, should_preserve, should_split, pathname, filename]
-    print(test)
+    handle(text, should_preserve, should_split, pathname, filename)
+
+def handle(text, should_preserve, should_split, pathname, filename):
+    #Split text into a list of lines
+    list_of_lines = text.splitlines()
+
+    #For each line in the list, figure out how long it will take
+    current_time = 0.000
+    list_of_durations = []
+    for line in list_of_lines:
+        duration_seconds = len(line) / 17
+        start_time = current_time
+        end_time = start_time + duration_seconds
+        list_of_durations.append((f"{start_time:.3f}", f"{end_time:.3f}"))
+        current_time = end_time + 0.001
+
+    #Open file, write everything to file, close file
+    print(list_of_lines)
+    print(list_of_durations)
 
 window = tk.Tk()
 
