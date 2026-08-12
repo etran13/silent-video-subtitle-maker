@@ -2,11 +2,15 @@ import tkinter as tk
 import string_processing as sp
 
 def handle_generate_button_click(event):
-    """Generate the vtt file"""
+    """Get all fields and generate the vtt file"""
     text = text_box.get("1.0", tk.END)
     should_preserve = preserve_period_checkbox_var.get()
     should_split = split_long_sentences_checkbox_var.get()
-    filename = f""
+    pathname = f"{pathname_text_box.get()}/"
+    filename = f"{filename_text_box.get()}.vtt"
+
+    test = [text, should_preserve, should_split, pathname, filename]
+    print(test)
 
 window = tk.Tk()
 
