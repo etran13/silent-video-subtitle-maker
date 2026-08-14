@@ -20,9 +20,9 @@ class Timestamp:
         else:
             carryover = seconds // 60
             remainder = seconds - (carryover * 60)
-            print(f"Carryover: {carryover}, Remainder: {carryover}")
-            self.secs = remainder
-            self.mins = int(carryover)
+            print(f"Carryover: {carryover}, Remainder: {remainder}")
+            self.secs += remainder
+            self.mins += int(carryover)
 
 def handle_generate_button_click(event):
     """Get all fields and generate the vtt file"""
