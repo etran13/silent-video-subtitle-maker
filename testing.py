@@ -1,20 +1,43 @@
 from main import Timestamp
 
 test = Timestamp()
-print(test)
+ans = 0.0
 
-# test.add(1)
-# print(f"{test}, {test == "00:00:01.000"}")
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
 
-test.add(60)
-answer = "00:01:00.000"
-print(str(test) == answer)
+test.add(360)
+ans += 360
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
 
-test.add(61)
-answer = "00:02:01.000"
-print(str(test) == answer)
+test.add(360)
+ans += 360
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
 
-test.add(61.22)
-answer = "00:03:02.220"
-print(str(test))
-print(str(test) == answer)
+test.add(360)
+ans += 360
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+#Decimal addition
+test.add(360.233244322)
+ans += 360.233244322
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+test.add(360.233244322)
+ans += 360.233244322
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+test.add(360.233244322)
+ans += 360.233244322
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+test.add(60.232)
+ans += 60.232
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+test.add(60.232)
+ans += 60.232
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+test.add(60.231)
+ans += 60.231
+print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")

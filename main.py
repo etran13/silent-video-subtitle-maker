@@ -12,7 +12,7 @@ class Timestamp:
     def add(self, number):
         "Takes in a number in seconds and adds it to the timestamp."
         seconds = self.secs + number
-        print(f"Seconds: {seconds}")
+        #print(f"Seconds: {seconds}")
         if seconds < 60:
             print("Less than")
             self.secs = seconds
@@ -20,9 +20,13 @@ class Timestamp:
         else:
             carryover = seconds // 60
             remainder = seconds - (carryover * 60)
-            print(f"Carryover: {carryover}, Remainder: {remainder}")
+            #print(f"Carryover: {carryover}, Remainder: {remainder}")
             self.secs = remainder
             self.mins += int(carryover)
+
+    def convert_to_secs(self):
+        "Converts the timestamp to seconds (purely for testing)"
+        return self.secs + (self.mins * 60) + (self.hrs * 60 * 60)
 
 def handle_generate_button_click(event):
     """Get all fields and generate the vtt file"""
