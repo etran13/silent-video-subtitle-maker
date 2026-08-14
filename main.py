@@ -14,7 +14,7 @@ class Timestamp:
         seconds = self.secs + number
         #print(f"Seconds: {seconds}")
         if seconds < 60:
-            print("Less than")
+            #print("Less than")
             self.secs = seconds
             return
         else:
@@ -43,14 +43,15 @@ def handle(text, should_preserve, should_split, pathname, filename):
     list_of_lines = text.splitlines()
 
     #For each line in the list, figure out how long it will take
-    current_time = 0.000
+    time = Timestamp()
     list_of_durations = []
     for line in list_of_lines:
-        duration_seconds = len(line) / 17
-        start_time = current_time
-        end_time = start_time + duration_seconds
-        list_of_durations.append((f"{start_time:.3f}", f"{end_time:.3f}"))
-        current_time = end_time + 0.001
+        duration_seconds = round(len(line) / 17, 3)
+        start_time = str(time)
+        time.add(duration_seconds)
+        end_time = str(time)
+        list_of_durations.append((f"{start_time}", f"{end_time}"))
+        time.add(0.001)
 
     #Open file, write everything to file, close file
     print(list_of_lines)
