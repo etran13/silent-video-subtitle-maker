@@ -50,13 +50,19 @@ def handle(text, filename):
         end_time = str(time)
         list_of_durations.append((f"{start_time} --> {end_time}"))
         time.add(0.001)
-
-    with open(f"{Path.home()}/Downloads/{filename}.srt", "w", encoding="utf-8") as file:
+    
+    pathname_string = f"{Path.home()}/Downloads/{filename}.srt"
+    with open(pathname_string, "w", encoding="utf-8") as file:
         for i in range(len(list_of_lines)):
             file.write(f"{i + 1}\n")
             file.write(f"{list_of_durations[i]}\n")
             file.write(f"{list_of_lines[i]}\n\n")
-    print("Done")
+    done(pathname_string)
+
+def done(pathname):
+    "Shows a popup when file is done generating"
+    status_label.config(text=f"✓ File saved to {pathname}")
+    window.after(3000, lambda: status_label.config(text=""))  # clear after 3 sec
 
 if __name__ == "__main__":
     window = tk.Tk()
@@ -88,6 +94,9 @@ if __name__ == "__main__":
     )
     generate_button.bind("<Button-1>", handle_generate_button_click)
     generate_button.grid(row=1, column=1)
+
+    status_label = tk.Label(master=window, text="", fg="green")
+    status_label.grid()
 
     text_box.get("1.0", tk.END)
 
