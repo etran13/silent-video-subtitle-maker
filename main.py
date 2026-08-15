@@ -7,7 +7,7 @@ class Timestamp:
         self.secs = secs
 
     def __str__(self):
-        return f"{self.hrs:02}:{self.mins:02}:{self.secs:06.3f}"
+        return f"{self.hrs:02}:{self.mins:02}:{self.secs:06.3f}".replace(".", ",")
     
     def add(self, number):
         "Takes in a number in seconds and adds it to the timestamp."
@@ -50,12 +50,19 @@ def handle(text, should_preserve, should_split, pathname, filename):
         start_time = str(time)
         time.add(duration_seconds)
         end_time = str(time)
-        list_of_durations.append((f"{start_time}", f"{end_time}"))
+        list_of_durations.append((f"{start_time} --> {end_time}"))
         time.add(0.001)
 
     #Open file, write everything to file, close file
-    print(list_of_lines)
-    print(list_of_durations)
+    # print(list_of_lines)
+    # print(list_of_durations)
+
+    with open("example.srt", "w", encoding="utf-8") as file:
+        for i in range(len(list_of_lines)):
+            file.write(f"{i + 1}\n")
+            file.write(f"{list_of_durations[i]}\n")
+            file.write(f"{list_of_lines[i]}\n\n")
+    print("Done")
 
 if __name__ == "__main__":
     window = tk.Tk()

@@ -41,3 +41,5 @@ print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_se
 test.add(60.231)
 ans += 60.231
 print(f"{test.convert_to_secs() == ans}, exp: {ans}, actual: {test.convert_to_secs()}")
+
+print(test)
