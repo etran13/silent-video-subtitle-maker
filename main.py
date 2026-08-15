@@ -1,4 +1,5 @@
 import tkinter as tk
+from pathlib import Path
 
 class Timestamp:
     def __init__(self, hrs=0, mins=0, secs=00.000):
@@ -34,7 +35,7 @@ def handle_generate_button_click(event):
     should_preserve = preserve_period_checkbox_var.get()
     should_split = split_long_sentences_checkbox_var.get()
     pathname = f"{pathname_text_box.get()}"
-    filename = f"/{filename_text_box.get()}.vtt"
+    filename = f"{filename_text_box.get()}"
 
     handle(text, should_preserve, should_split, pathname, filename)
 
@@ -46,18 +47,14 @@ def handle(text, should_preserve, should_split, pathname, filename):
     time = Timestamp()
     list_of_durations = []
     for line in list_of_lines:
-        duration_seconds = round(len(line) / 17, 3)
+        duration_seconds = round(len(line) / 16, 3)
         start_time = str(time)
         time.add(duration_seconds)
         end_time = str(time)
         list_of_durations.append((f"{start_time} --> {end_time}"))
         time.add(0.001)
 
-    #Open file, write everything to file, close file
-    # print(list_of_lines)
-    # print(list_of_durations)
-
-    with open("example.srt", "w", encoding="utf-8") as file:
+    with open(f"{Path.home()}/Downloads/{filename}.srt", "w", encoding="utf-8") as file:
         for i in range(len(list_of_lines)):
             file.write(f"{i + 1}\n")
             file.write(f"{list_of_durations[i]}\n")
