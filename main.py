@@ -1,63 +1,12 @@
 import tkinter as tk
-from pathlib import Path
-
-class Timestamp:
-    def __init__(self, hrs=0, mins=0, secs=00.000):
-        self.hrs = hrs
-        self.mins = mins
-        self.secs = secs
-
-    def __str__(self):
-        return f"{self.hrs:02}:{self.mins:02}:{self.secs:06.3f}".replace(".", ",")
-    
-    def add(self, number):
-        "Takes in a number in seconds and adds it to the timestamp."
-        seconds = self.secs + number
-        #print(f"Seconds: {seconds}")
-        if seconds < 60:
-            #print("Less than")
-            self.secs = seconds
-            return
-        else:
-            carryover = seconds // 60
-            remainder = seconds - (carryover * 60)
-            #print(f"Carryover: {carryover}, Remainder: {remainder}")
-            self.secs = remainder
-            self.mins += int(carryover)
-
-    def convert_to_secs(self):
-        "Converts the timestamp to seconds (purely for testing)"
-        return self.secs + (self.mins * 60) + (self.hrs * 60 * 60)
+from srt_generator import generate_srt
 
 def handle_generate_button_click(event):
-    """Get all fields and generate the vtt file"""
+    """Get all fields and generate the srt file"""
     text = text_box.get("1.0", tk.END)
     filename = f"{filename_text_box.get()}"
-
-    handle(text, filename)
-
-def handle(text, filename):
-    #Split text into a list of lines
-    list_of_lines = text.splitlines()
-
-    #For each line in the list, figure out how long it will take
-    time = Timestamp()
-    list_of_durations = []
-    for line in list_of_lines:
-        duration_seconds = round(len(line) / 17, 3)
-        start_time = str(time)
-        time.add(duration_seconds)
-        end_time = str(time)
-        list_of_durations.append((f"{start_time} --> {end_time}"))
-        time.add(0.001)
-    
-    pathname_string = f"{Path.home()}/Downloads/{filename}.srt"
-    with open(pathname_string, "w", encoding="utf-8") as file:
-        for i in range(len(list_of_lines)):
-            file.write(f"{i + 1}\n")
-            file.write(f"{list_of_durations[i]}\n")
-            file.write(f"{list_of_lines[i]}\n\n")
-    done(pathname_string)
+    pathname = generate_srt(text, filename)
+    done(pathname)
 
 def done(pathname):
     "Shows a popup when file is done generating"
@@ -97,7 +46,5 @@ if __name__ == "__main__":
 
     status_label = tk.Label(master=window, text="", fg="green")
     status_label.grid()
-
-    text_box.get("1.0", tk.END)
 
     window.mainloop()
