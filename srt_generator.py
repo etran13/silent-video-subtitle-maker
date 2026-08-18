@@ -1,6 +1,9 @@
 from pathlib import Path
 from timestamp import Timestamp
 
+CHARS_PER_SECOND = 17
+GAP_SECONDS = 0.001
+
 def generate_srt(text, filename):
     #Split text into a list of lines
     list_of_lines = text.splitlines()
@@ -9,12 +12,12 @@ def generate_srt(text, filename):
     time = Timestamp()
     list_of_durations = []
     for line in list_of_lines:
-        duration_seconds = round(len(line) / 17, 3)
+        duration_seconds = round(len(line) / CHARS_PER_SECOND, 3)
         start_time = str(time)
         time.add(duration_seconds)
         end_time = str(time)
         list_of_durations.append((f"{start_time} --> {end_time}"))
-        time.add(0.001)
+        time.add(GAP_SECONDS)
     
     pathname_string = f"{Path.home()}/Downloads/{filename}.srt"
     with open(pathname_string, "w", encoding="utf-8") as file:
